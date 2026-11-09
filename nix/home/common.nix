@@ -22,6 +22,7 @@
     ./modules/keyring.nix
     ./modules/lazygit.nix
     ./modules/mpv.nix
+    ./modules/nautilus.nix
     ./modules/neovim.nix
     ./modules/rofi.nix
     ./modules/ssh.nix
