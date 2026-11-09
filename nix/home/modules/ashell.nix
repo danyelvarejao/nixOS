@@ -64,6 +64,7 @@
             "Tempo"
             "Tray"
             "Privacy"
+            "Notifications"
             "Settings"
           ]
         ];

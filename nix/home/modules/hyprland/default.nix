@@ -11,6 +11,8 @@
     ./rules.nix
   ];
 
+  services.hyprpolkitagent.enable = true;
+
   # Start the desktop after logging in on the first TTY.
   programs.zsh.profileExtra = ''
     if uwsm check may-start; then
