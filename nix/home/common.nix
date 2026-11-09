@@ -14,6 +14,7 @@
   imports = [
     ./modules/cli.nix
     ./modules/git.nix
+    ./modules/keyring.nix
     ./modules/lazygit.nix
     ./modules/mpv.nix
     ./modules/neovim.nix
