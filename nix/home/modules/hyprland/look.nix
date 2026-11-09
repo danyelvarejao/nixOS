@@ -60,7 +60,7 @@ in
       };
 
       decoration = {
-        rounding = 30;
+        rounding = 24;
         rounding_power = 2;
         blur = {
           enabled = true;

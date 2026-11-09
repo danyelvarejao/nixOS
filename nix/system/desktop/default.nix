@@ -14,6 +14,7 @@
     ../modules/common.nix
     ../modules/development.nix
     ../modules/apps.nix
+    ../modules/razer.nix
   ];
 
   networking.hostName = "desktop";

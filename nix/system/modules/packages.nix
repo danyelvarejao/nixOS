@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  programs.localsend.enable = true;
+
   environment.systemPackages = with pkgs; [
     # Files and viewers
     evince # pdf viewer

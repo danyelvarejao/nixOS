@@ -8,6 +8,7 @@
     ./idle.nix
     ./keybinds.nix
     ./look.nix
+    ./rules.nix
   ];
 
   # Start the desktop after logging in on the first TTY.
@@ -30,7 +31,7 @@
           repeat_delay = 150;
           sensitivity = 0;
           accel_profile = "flat";
-          follow_mouse = 2;
+          follow_mouse = 1;
           touchpad = {
             natural_scroll = true;
             clickfinger_behavior = true;
@@ -39,6 +40,8 @@
             drag_3fg = 1;
           };
         };
+
+        cursor.no_warps = true;
 
         xwayland.force_zero_scaling = true;
 

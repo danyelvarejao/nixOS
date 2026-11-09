@@ -87,6 +87,8 @@
         "l" = "ls -la";
         "h" = "history";
         "man" = "batman";
+        "cat" = "bat --paging=never";
+        "claudey" = "claude --permission-mode=plan --allow-dangerously-skip-permissions";
         "v" = "nvim";
         # devenv
         "d" = "devenv";

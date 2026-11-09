@@ -23,6 +23,12 @@
     jetbrains-toolbox
     vscode
 
+    # Database and reverse engineering
+    beekeeper-studio
+    ghidra
+    hopper
+    httptoolkit
+
     # AI coding agents
     claude-code
   ];
