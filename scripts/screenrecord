@@ -1,0 +1,12 @@
+# Starts a screen recording, or stops the one in progress.
+if pkill -INT -f "gpu-screen-recorder -w"; then
+  notify-send -t 2000 "Screen recording stopped"
+  exit 0
+fi
+
+dir="$HOME/Videos/Recordings"
+mkdir -p "$dir"
+file="$dir/recording-$(date +%F-%H%M%S).mp4"
+
+notify-send -t 2000 "Screen recording started" "$file"
+exec gpu-screen-recorder -w screen -f 60 -a default_output -o "$file"
