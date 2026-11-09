@@ -53,7 +53,7 @@
   programs.btop = {
     enable = true;
     settings = {
-      update_ms = 800;
+      update_ms = 300;
       cpu_single_graph = true;
       proc_per_core = true;
     };
