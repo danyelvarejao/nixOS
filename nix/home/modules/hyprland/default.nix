@@ -30,6 +30,7 @@
           repeat_delay = 150;
           sensitivity = 0;
           accel_profile = "flat";
+          follow_mouse = 2;
           touchpad = {
             natural_scroll = true;
             clickfinger_behavior = true;
