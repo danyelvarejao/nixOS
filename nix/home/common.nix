@@ -39,9 +39,8 @@
       homeDirectory = "/home/${username}";
       packages = with pkgs; [
         clipboard
-        ocr
+        omasnap
         screenrecord
-        screenshot
       ];
       sessionPath = [
         "$HOME/.local/bin"

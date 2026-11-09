@@ -1,7 +1,12 @@
 { inputs, ... }:
 {
   # Custom packages from the 'pkgs' directory.
-  additions = final: _prev: import ../pkgs final.pkgs;
+  additions =
+    final: _prev:
+    import ../pkgs {
+      inherit inputs;
+      inherit (final) pkgs;
+    };
 
   # Version overrides and patches for packages from nixpkgs.
   modifications = final: prev: {

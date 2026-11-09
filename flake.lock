@@ -253,12 +253,29 @@
         "type": "github"
       }
     },
+    "omasnap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793800308,
+        "narHash": "sha256-tFnTqAGKmNHQqjPsBq/XvgRh/5jXiD0Mxj6h1SLEpyI=",
+        "owner": "omacom",
+        "repo": "omasnap",
+        "rev": "008a3d1ecb8c67b6709ff2fbcd6da1290b2944ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "omacom",
+        "repo": "omasnap",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "omasnap": "omasnap",
         "stylix": "stylix"
       }
     },

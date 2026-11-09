@@ -165,5 +165,11 @@ in
       match.namespace = "notifications";
       blur = true;
     }
+    {
+      name = "omasnap";
+      match.namespace = "^omasnap$";
+      no_anim = true;
+      animation = "none";
+    }
   ];
 }

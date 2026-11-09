@@ -20,6 +20,12 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Not in nixpkgs. Built by nix/pkgs/omasnap.nix.
+    omasnap = {
+      url = "github:omacom/omasnap";
+      flake = false;
+    };
   };
 
   outputs =

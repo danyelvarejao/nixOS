@@ -1,9 +1,0 @@
-# Captures a selected region, saves it, and copies it to the clipboard.
-dir="$HOME/Pictures/Screenshots"
-mkdir -p "$dir"
-file="$dir/screenshot-$(date +%F-%H%M%S).png"
-
-region="$(slurp)" || exit 0
-grim -g "$region" "$file"
-wl-copy <"$file"
-notify-send -t 2000 "Screenshot saved" "$file"

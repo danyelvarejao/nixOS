@@ -70,8 +70,7 @@ in
     (exec "SUPER + CTRL + V" "clipboard")
 
     # Captures
-    (exec "SUPER + SHIFT + S" "screenshot")
-    (exec "SUPER + SHIFT + T" "ocr")
+    (exec "SUPER + SHIFT + S" "omasnap")
     (exec "SUPER + SHIFT + D" "screenrecord")
     (exec "SUPER + SHIFT + C" "pkill hyprpicker || hyprpicker -a")
   ]
