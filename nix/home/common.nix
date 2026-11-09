@@ -20,6 +20,7 @@
     ./modules/neovim.nix
     ./modules/ssh.nix
     ./modules/stream.nix
+    ./modules/xcompose.nix
     ./modules/xdg.nix
     ./modules/zsh.nix
   ];
