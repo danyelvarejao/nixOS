@@ -27,6 +27,7 @@
     ./modules/rofi.nix
     ./modules/ssh.nix
     ./modules/stream.nix
+    ./modules/tui-apps.nix
     ./modules/wayland.nix
     ./modules/xcompose.nix
     ./modules/xdg.nix

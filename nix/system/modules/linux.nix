@@ -14,6 +14,7 @@
 
     # Files
     dtrx
+    dua # interactive disk usage
     dust
     fd
     file
