@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 let
   curve = name: x0: y0: x1: y1: {
     _args = [
@@ -35,16 +35,6 @@ in
 {
   services.hyprpaper.enable = true;
   stylix.targets.hyprland.hyprpaper.enable = true;
-
-  gtk.enable = true;
-  gtk.theme = lib.mkForce {
-    name = "adw-gtk3-dark";
-    package = pkgs.adw-gtk3;
-  };
-
-  dconf.settings."org/gnome/desktop/interface".color-scheme = lib.mkForce "prefer-dark";
-
-  home.pointerCursor.enable = true;
 
   wayland.windowManager.hyprland.settings = {
     config = {
@@ -114,40 +104,6 @@ in
       (noAnimation "workspacesIn")
       (noAnimation "workspacesOut")
       (animation "zoomFactor" 7 "quick" null)
-    ];
-
-    window_rule = [
-      # Android Studio emulator opens floating; transparency breaks its colors.
-      {
-        name = "android-emulator";
-        match.class = "^(Emulator)$";
-        float = true;
-        rounding = 0;
-        opacity = "1.0 override";
-      }
-      {
-        name = "opaque-firefox";
-        match.class = "firefox";
-        opacity = "1.0 override";
-      }
-      {
-        name = "opaque-mpv";
-        match.class = "mpv";
-        opacity = "1.0 override";
-      }
-    ];
-
-    layer_rule = [
-      {
-        name = "blur-rofi";
-        match.namespace = "rofi";
-        blur = true;
-      }
-      {
-        name = "blur-notifications";
-        match.namespace = "notifications";
-        blur = true;
-      }
     ];
   };
 }

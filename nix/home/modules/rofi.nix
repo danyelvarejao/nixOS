@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.rofi = {
     enable = true;
@@ -15,7 +15,7 @@
         "emoji"
         "calc"
       ];
-      font = "JetBrains Mono 17";
+      font = "${config.stylix.fonts.monospace.name} 17";
     };
   };
 

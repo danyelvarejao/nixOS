@@ -13,6 +13,7 @@
     ./boot.nix
     ./browser.nix
     ./fonts.nix
+    ./home-manager.nix
     ./hyprland.nix
     ./linux.nix
     ./locale.nix

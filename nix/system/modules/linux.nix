@@ -1,38 +1,62 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # Terminal
+    bat-extras.batman
+    bat-extras.batwatch
     bc # calculator
-    bind
-    curl
-    dmidecode
+    chafa # terminal image viewer
+    cmatrix
+    fastfetch
+    figlet
+    nushell
+    tree
+
+    # Files
     dtrx
     dust
-    fastfetch
     fd
-    ffmpeg
     file
-    fx # tui json viewer
-    git
-    gping # ping with a graph
-    htop
-    httpie
-    imagemagick
-    iprange
-    jq
-    lm_sensors
-    lsof
-    mosh
-    pciutils
-    ps_mem
-    psmisc # fuser
     rsync
+    unzip
+    zip
+
+    # Data and media
+    ffmpeg
+    fx # tui json viewer
+    imagemagick
+    jq
+    unixtools.xxd
+
+    # Development
+    ast-grep
+    devenv
+    git
+
+    # Network
+    bind
+    curl
+    gping # ping with a graph
+    httpie
+    iprange
+    mosh
     trippy # network diagnostic
     unixtools.netstat
-    unixtools.xxd
-    unzip
-    usbutils
     wget
-    zip
+
+    # Processes and services
+    htop
+    lsof
+    ps_mem
+    psmisc # fuser
+    systemctl-tui
+    sysz
+
+    # Hardware
+    dmidecode
+    lm_sensors
+    pciutils
+    usbutils
   ];
 
   # Enable zsh completion for system packages.

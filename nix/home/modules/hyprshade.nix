@@ -13,7 +13,7 @@
     }
   ];
 
-  home.file.".config/hyprshade/config.toml".text = ''
+  xdg.configFile."hyprshade/config.toml".text = ''
     [[shades]]
     name = "vibrance"
     default = true

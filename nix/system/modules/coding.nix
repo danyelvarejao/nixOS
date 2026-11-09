@@ -7,14 +7,11 @@
     gnumake
     go
     http-server
-    luarocks
     nodejs
     openssl
     pnpm
     python3
     ruby
-    stylua
-    tree-sitter
     uv
 
     # Editors and IDEs

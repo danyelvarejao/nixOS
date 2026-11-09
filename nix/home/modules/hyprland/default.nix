@@ -1,10 +1,6 @@
 { lib, ... }:
 {
   imports = [
-    ../ashell.nix
-    ../ghostty.nix
-    ../hyprshade.nix
-    ../wayland.nix
     ./idle.nix
     ./keybinds.nix
     ./look.nix

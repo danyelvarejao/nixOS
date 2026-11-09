@@ -21,7 +21,7 @@
       fork = true;
       startup-message-capture = false; # for nvim noice
       font = {
-        normal = [ "JetBrains Mono" ];
+        normal = [ config.stylix.fonts.monospace.name ];
         size = 18.0;
       };
     };
@@ -29,6 +29,7 @@
 
   home.packages = with pkgs; [
     lua-language-server
+    luarocks
     marksman # Markdown
     oxfmt
     oxlint
@@ -37,14 +38,15 @@
     shfmt
     stylelint
     stylelint-lsp
+    stylua
     taplo # TOML
+    tree-sitter
     typescript-language-server
     vscode-langservers-extracted
     yaml-language-server
   ];
 
-  home.file.".config/nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.custom.dotfiles}/nvim";
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.custom.dotfiles}/nvim";
 
   stylix.targets.neovim.enable = false;
   stylix.targets.neovide.enable = false;

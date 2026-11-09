@@ -1,4 +1,3 @@
-# Window rules carried over from Omarchy.
 { ... }:
 let
   dialog = name: match: {
@@ -131,6 +130,40 @@ in
         1100
         700
       ];
+    }
+
+    # Android Studio emulator opens floating; transparency breaks its colors.
+    {
+      name = "android-emulator";
+      match.class = "^(Emulator)$";
+      float = true;
+      rounding = 0;
+      opacity = "1.0 override";
+    }
+
+    # Always opaque
+    {
+      name = "opaque-firefox";
+      match.class = "firefox";
+      opacity = "1.0 override";
+    }
+    {
+      name = "opaque-mpv";
+      match.class = "mpv";
+      opacity = "1.0 override";
+    }
+  ];
+
+  wayland.windowManager.hyprland.settings.layer_rule = [
+    {
+      name = "blur-rofi";
+      match.namespace = "rofi";
+      blur = true;
+    }
+    {
+      name = "blur-notifications";
+      match.namespace = "notifications";
+      blur = true;
     }
   ];
 }

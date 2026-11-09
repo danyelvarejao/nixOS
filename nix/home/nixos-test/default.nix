@@ -1,9 +1,6 @@
 { ... }:
 {
-  imports = [
-    ../common.nix
-    ../modules/hyprland
-  ];
+  imports = [ ../common.nix ];
 
   # The virtual GPU does not support hardware cursors.
   wayland.windowManager.hyprland.settings = {

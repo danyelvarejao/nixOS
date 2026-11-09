@@ -26,7 +26,6 @@
     {
       self,
       nixpkgs,
-      home-manager,
       ...
     }@inputs:
     let
@@ -39,11 +38,7 @@
         lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.users.danyel = import ./nix/home/${name};
-              home-manager.extraSpecialArgs = specialArgs;
-            }
+            { home-manager.users.danyel = import ./nix/home/${name}; }
             ./nix/system/${name}
           ];
         };

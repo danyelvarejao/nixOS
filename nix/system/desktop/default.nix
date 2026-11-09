@@ -1,5 +1,10 @@
 # desktop is my main PC; hardware.nix is generated during installation
-{ inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./hardware.nix
@@ -29,7 +34,7 @@
     ipv4 = {
       method = "manual";
       address1 = "192.168.0.14/24,192.168.0.1";
-      dns = "1.1.1.1;1.0.0.1;8.8.8.8;8.8.4.4;";
+      dns = lib.concatMapStrings (server: "${server};") config.networking.nameservers;
     };
     ipv6.method = "auto";
   };

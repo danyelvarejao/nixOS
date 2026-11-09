@@ -42,7 +42,6 @@
   home.sessionVariables = {
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     MANROFFOPT = "-c";
-    STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
   };
 
   programs.ripgrep.enable = true;
@@ -55,6 +54,8 @@
       proc_per_core = true;
     };
   };
+
+  home.sessionVariables.STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
 
   programs.starship = {
     enable = true;

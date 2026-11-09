@@ -84,36 +84,49 @@
         (lib.mkOrder 1000 (completion + keybindings))
       ];
       shellAliases = {
+        # NixOS
         "nswitch" = "nh os switch";
         "ntry" = "nh os test";
         "ndry" = "nh os test --dry";
         "nup" = "nh os switch --update";
         "ndev" = "nix develop --command zsh";
+
+        # systemd
         "su" = "systemctl --user";
         "sr" = "sudo systemctl";
         "ju" = "journalctl --user -u";
         "jr" = "sudo journalctl -u";
+
+        # Navigation
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";
-        # Propagate user config
-        "_" = "sudo -E";
+
+        # Listing
         "ls" = "eza -lh";
         "lsa" = "ls -a";
         "lt" = "eza --tree --level=2 --long --git";
         "lta" = "lt -a";
         "l" = "ls -la";
-        "h" = "history";
+
+        # Replacements
         "man" = "batman";
         "cat" = "bat --paging=never";
-        "claudey" = "claude --permission-mode=plan --allow-dangerously-skip-permissions";
+
+        # Shell
+        "_" = "sudo -E"; # Propagate user config
+        "h" = "history";
+        "reload" = ". $ZDOTDIR/.zshrc";
+
+        # Editors and agents
         "v" = "nvim";
+        "claudey" = "claude --permission-mode=plan --allow-dangerously-skip-permissions";
+
         # devenv
         "d" = "devenv";
         "dr" = "devenv tasks run";
         "ds" = "devenv shell";
         "dp" = "devenv processes";
-        "reload" = ". $ZDOTDIR/.zshrc";
       };
     };
 }

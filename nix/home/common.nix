@@ -12,14 +12,21 @@
   };
 
   imports = [
+    ./modules/ashell.nix
     ./modules/cli.nix
+    ./modules/ghostty.nix
     ./modules/git.nix
+    ./modules/gtk.nix
+    ./modules/hyprland
+    ./modules/hyprshade.nix
     ./modules/keyring.nix
     ./modules/lazygit.nix
     ./modules/mpv.nix
     ./modules/neovim.nix
+    ./modules/rofi.nix
     ./modules/ssh.nix
     ./modules/stream.nix
+    ./modules/wayland.nix
     ./modules/xcompose.nix
     ./modules/xdg.nix
     ./modules/zsh.nix
