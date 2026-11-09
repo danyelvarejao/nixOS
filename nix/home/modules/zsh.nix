@@ -36,6 +36,20 @@
           zstyle ':completion::complete:*' gain-privileges 1
         '';
 
+      # Keys /etc/zinputrc leaves unbound or binds differently.
+      keybindings = # sh
+        ''
+          bindkey -- "''${terminfo[kcuu1]}" history-search-backward
+          bindkey -- "''${terminfo[kcud1]}" history-search-forward
+          bindkey -- "''${terminfo[kcbt]}"  reverse-menu-complete
+          bindkey -- "''${terminfo[kLFT5]}" backward-word # Ctrl+Left
+          bindkey -- "''${terminfo[kRIT5]}" forward-word  # Ctrl+Right
+          bindkey -- "''${terminfo[kLFT3]}" backward-word # Alt+Left
+          bindkey -- "''${terminfo[kRIT3]}" forward-word  # Alt+Right
+          bindkey '^H'      backward-kill-word            # Ctrl+Backspace
+          bindkey '^[[3;5~' kill-word                     # Ctrl+Delete
+        '';
+
       functions = # sh
         ''
           function psg() { ps aux | grep $* }
@@ -67,7 +81,7 @@
       };
       initContent = lib.mkMerge [
         (lib.mkOrder 550 (settings + functions))
-        (lib.mkOrder 1000 completion)
+        (lib.mkOrder 1000 (completion + keybindings))
       ];
       shellAliases = {
         "nswitch" = "nh os switch";
@@ -84,6 +98,10 @@
         "...." = "cd ../../..";
         # Propagate user config
         "_" = "sudo -E";
+        "ls" = "eza -lh";
+        "lsa" = "ls -a";
+        "lt" = "eza --tree --level=2 --long --git";
+        "lta" = "lt -a";
         "l" = "ls -la";
         "h" = "history";
         "man" = "batman";
@@ -95,7 +113,7 @@
         "dr" = "devenv tasks run";
         "ds" = "devenv shell";
         "dp" = "devenv processes";
-        "reload" = ". ~/.zshrc";
+        "reload" = ". $ZDOTDIR/.zshrc";
       };
     };
 }
