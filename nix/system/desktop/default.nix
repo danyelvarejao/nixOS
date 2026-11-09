@@ -24,6 +24,9 @@
 
   networking.hostName = "desktop";
 
+  # Keep USB audio and input devices awake.
+  boot.kernelParams = [ "usbcore.autosuspend=-1" ];
+
   networking.networkmanager.ensureProfiles.profiles.wired = {
     connection = {
       id = "wired";

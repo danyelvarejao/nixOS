@@ -19,4 +19,31 @@ pkgs: {
     ];
     text = builtins.readFile ../../scripts/screenrecord;
   };
+
+  ocr = pkgs.writeShellApplication {
+    name = "ocr";
+    runtimeInputs = with pkgs; [
+      grim
+      libnotify
+      slurp
+      (tesseract.override {
+        enableLanguages = [
+          "eng"
+          "por"
+        ];
+      })
+      wl-clipboard
+    ];
+    text = builtins.readFile ../../scripts/ocr;
+  };
+
+  # rofi comes from PATH: Home Manager builds it with the plugins and settings.
+  clipboard = pkgs.writeShellApplication {
+    name = "clipboard";
+    runtimeInputs = with pkgs; [
+      cliphist
+      wl-clipboard
+    ];
+    text = builtins.readFile ../../scripts/clipboard;
+  };
 }

@@ -37,6 +37,8 @@
       username = "danyel";
       homeDirectory = "/home/${username}";
       packages = with pkgs; [
+        clipboard
+        ocr
         screenrecord
         screenshot
       ];

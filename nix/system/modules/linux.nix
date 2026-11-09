@@ -27,6 +27,7 @@
     imagemagick
     jq
     unixtools.xxd
+    yt-dlp
 
     # Development
     ast-grep
@@ -40,6 +41,7 @@
     httpie
     iprange
     mosh
+    rclone
     trippy # network diagnostic
     unixtools.netstat
     wget

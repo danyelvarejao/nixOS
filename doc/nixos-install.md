@@ -103,6 +103,8 @@ git commit -m "Adiciona o hardware do desktop"
 git push
 ```
 
+Coloque os hosts SSH privados em `~/.ssh/config.local`, que fica fora do Git.
+
 ## Se algo der errado
 
 - No menu do `systemd-boot`, escolha uma geração anterior.

@@ -14,6 +14,10 @@
     ruby
     uv
 
+    # CI and tunnels
+    act # run GitHub Actions locally
+    cloudflared
+
     # Editors and IDEs
     android-studio
     android-tools

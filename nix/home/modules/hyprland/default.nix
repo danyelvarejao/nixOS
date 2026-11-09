@@ -41,7 +41,7 @@
 
         cursor.no_warps = true;
 
-        # New windows always open to the right or below, as in Omarchy.
+        # New windows always open to the right or below.
         dwindle = {
           force_split = 2;
           preserve_split = true;

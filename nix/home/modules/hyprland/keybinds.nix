@@ -67,9 +67,11 @@ in
     # Utilities
     (exec "SUPER + SPACE" "rofi -show drun")
     (exec "SUPER + PERIOD" "rofi -show emoji")
+    (exec "SUPER + CTRL + V" "clipboard")
 
     # Captures
     (exec "SUPER + SHIFT + S" "screenshot")
+    (exec "SUPER + SHIFT + T" "ocr")
     (exec "SUPER + SHIFT + D" "screenrecord")
     (exec "SUPER + SHIFT + C" "pkill hyprpicker || hyprpicker -a")
   ]
