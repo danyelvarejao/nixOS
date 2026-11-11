@@ -41,9 +41,10 @@
         ];
       };
       system_info.indicators = [
-        "Memory"
         "Cpu"
+        "Memory"
         "Temperature"
+        { Disk = "/"; }
       ];
       tempo = {
         clock_format = "%a %d/%m/%Y %H:%M:%S %Z";
@@ -66,8 +67,8 @@
             "Tempo"
             "Tray"
             "Privacy"
-            "Notifications"
             "Settings"
+            "Notifications"
           ]
         ];
       };
