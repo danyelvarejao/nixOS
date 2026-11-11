@@ -8,7 +8,7 @@
       "video"
       "networkmanager"
     ];
-    openssh.authorizedKeys.keyFiles = [ ./keys/danyel.pub ];
+    openssh.authorizedKeys.keyFiles = [ ../../../danyel.pub ];
   };
 
   security.sudo = {
