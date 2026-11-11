@@ -59,6 +59,12 @@
           function where-from() { readlink -f $(which $1) }
           function url-sha256() { curl -sL $1 | sha256sum | cut -d ' ' -f 1 | xxd -r -p | base64 }
           function c() { printf "%s\n" "$@" | bc -l; }
+          # Update the flake inputs, switch, and commit only flake.lock if it changed.
+          function nup() {
+            nh os switch --update "$@" || return
+            git -C ${config.custom.dotfiles} diff --quiet -- flake.lock && return
+            git -C ${config.custom.dotfiles} commit --quiet -m "Update flake inputs" -- flake.lock
+          }
         '';
     in
     {
@@ -88,7 +94,6 @@
         "nswitch" = "nh os switch";
         "ntry" = "nh os test";
         "ndry" = "nh os test --dry";
-        "nup" = "nh os switch --update";
         "ndev" = "nix develop --command zsh";
 
         # systemd
