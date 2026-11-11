@@ -57,6 +57,7 @@
     in
     {
       overlays = import ./nix/overlays { inherit inputs; };
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
       nixosConfigurations = lib.genAttrs hosts mkHost;
     };
 }
