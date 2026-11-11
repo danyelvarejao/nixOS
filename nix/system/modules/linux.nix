@@ -65,6 +65,9 @@
   # Enable zsh completion for system packages.
   environment.pathsToLink = [ "/share/zsh" ];
 
+  # Power profiles for the ashell PowerProfile indicator.
+  services.power-profiles-daemon.enable = true;
+
   # Never suspend when the lid closes; the power key keeps systemd's default (power off).
   services.logind.settings.Login.HandleLidSwitch = "ignore";
 
