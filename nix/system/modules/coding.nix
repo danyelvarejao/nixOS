@@ -1,12 +1,16 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     # Languages and build tools
     bun
+    (lib.setPrio 11 clang) # gcc and clang both ship cc at priority 10; gcc wins
+    cmake
     gcc
     gnumake
     go
     http-server
+    llvm
+    ninja
     nodejs
     openssl
     pnpm
@@ -29,6 +33,10 @@
     ghidra
     hopper
     httptoolkit
+
+    # Profilers
+    heaptrack
+    tracy
 
     # AI coding agents
     claude-code

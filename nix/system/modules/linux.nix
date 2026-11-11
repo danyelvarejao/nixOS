@@ -13,6 +13,7 @@
     tree
 
     # Files
+    _7zz # 7-Zip
     dtrx
     dua # interactive disk usage
     dust
@@ -42,10 +43,13 @@
     httpie
     iprange
     mosh
+    netcat-openbsd
     rclone
+    socat
     trippy # network diagnostic
     unixtools.netstat
     wget
+    whois
 
     # Processes and services
     htop
