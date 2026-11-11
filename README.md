@@ -1,11 +1,40 @@
-## Danyel's NixOs config
+# Danyel's NixOS config
 
-This is my personal [NixOs](https://nixos.org/) configurations for my machines.
-It's not meant to be used by anyone else, but feel free to take inspiration from it.
+My [NixOS](https://nixos.org/) configuration, written as a flake with
+[Home Manager](https://github.com/nix-community/home-manager). You are welcome to fork it and make
+it yours.
 
-- `nix/home/` contains my [home-manager](https://github.com/nix-community/home-manager) configuration
-- `nix/system/` contains my [NixOs](https://nixos.org/) configuration
-- `flake.nix` is the entry point from which all machines are configured
-- `danyel.pub` is my public SSH key
-- `nvim/` contains my [neovim](https://neovim.io/) configuration
-- `doc/nixos-install.md` is the installation guide
+## What you get
+
+- Hyprland with UWSM, started from the first TTY, with ashell as the bar and rofi as the launcher
+- Catppuccin Mocha everywhere through [Stylix](https://github.com/nix-community/stylix)
+- Ghostty, zsh with starship, fzf, zoxide and eza
+- Neovim with LazyVim, plus Neovide
+- Disks declared with [disko](https://github.com/nix-community/disko): ESP, swap and ext4
+- Development tools, Docker, libvirt, Steam and desktop apps
+
+## Layout
+
+- `flake.nix` is the entry point. Its `vars` block holds every personal setting.
+- `nix/system/` is the NixOS configuration: shared `modules/` and one directory per host.
+- `nix/home/` is the Home Manager configuration: shared `modules/` and one directory per host.
+- `nix/pkgs/` and `nix/overlays/` add and patch packages.
+- `nvim/` is the Neovim configuration, linked to `~/.config/nvim` so it stays editable.
+- `danyel.pub` is my public SSH key.
+- `doc/` has the guides.
+
+## Make it yours
+
+1. Fork the repository.
+2. Edit the `vars` block in `flake.nix`: user name, Git identity, SSH keys, time zone, locale and
+   keyboard.
+3. Replace `danyel.pub` with your public SSH key, or point `vars.sshKeys` at yours.
+4. Add a host for your machine, as described in [doc/adding-a-host.md](doc/adding-a-host.md). The
+   `desktop` host is my PC; use it as an example.
+5. Install with [doc/nixos-install.md](doc/nixos-install.md).
+
+To try it first, `nixos-test` is a host for a libvirt VM.
+
+## License
+
+[MIT](LICENSE)

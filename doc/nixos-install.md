@@ -1,118 +1,132 @@
-# Instalar o NixOS no PC principal
+# Installing NixOS
 
-Guia para instalar o host `desktop` do zero. **Isto apaga o disco inteiro.**
+How to install a host from scratch. **This erases the host's whole disk.**
 
-O disco alvo é o **XPG GAMMIX S70 de 954 GB**, declarado por modelo e serial em
-`nix/system/desktop/default.nix`. O Windows fica no WD_BLACK e não é citado na configuração.
+Create the host first, as described in [adding-a-host.md](adding-a-host.md). Below, replace
+`<host>` with its name and `<user>` with `vars.user` from `flake.nix`.
 
-## Layout
+Other disks are never touched: the configuration only names the disk set in the host's
+`default.nix`. A second operating system on another disk stays available from the firmware's boot
+menu.
 
-Definido em `nix/system/modules/disk.nix`:
+## Disk layout
 
-| Partição | Tamanho | Sistema |
-| -------- | ------- | ------- |
-| ESP      | 1 GB    | FAT32   |
-| swap     | 32 GB   | swap    |
-| root     | resto   | ext4    |
+Defined in `nix/system/modules/disk.nix`:
 
-O disco fica sem criptografia.
+| Partition | Size              | File system |
+| --------- | ----------------- | ----------- |
+| ESP       | 1 GB              | FAT32       |
+| swap      | the host's choice | swap        |
+| root      | the rest          | ext4        |
 
-## O que você precisa
+The disk is not encrypted.
 
-- ISO do NixOS gravada em um pendrive.
-- Internet na máquina durante a instalação.
-- Repositório `nixOS` publicado no GitHub, para clonar sem login.
+## What you need
 
-## Instalação
+- A USB drive with the NixOS ISO.
+- Internet access during the installation.
+- Secure Boot turned off.
 
-Inicie pelo pendrive usando o menu de boot da placa-mãe. O Secure Boot já está desligado.
-Vire root com `sudo -i`.
+## Installation
 
-### 1. Confirme o disco
+Boot from the USB drive and become root with `sudo -i`.
+
+### 1. Check the disk
 
 ```sh
-ls -l /dev/disk/by-id/ | grep nvme-XPG_GAMMIX_S70_BLADE_2P47291792F9
+ls -l /dev/disk/by-id/
 ```
 
-Tem que aparecer exatamente esse disco. Se o comando não mostrar nada, pare: o serial na
-configuração não corresponde à máquina.
+The disk set in `nix/system/<host>/default.nix` must be listed. If it is not, stop: the
+configuration does not match this machine.
 
-### 2. Clone o repositório
+In a VM, a virtio disk without a serial number has no entry here; the host uses `/dev/vda`
+instead, and `lsblk` confirms it.
+
+### 2. Clone the repository
 
 ```sh
-git clone https://github.com/danyelvarejao/nixOS /tmp/nixOS
+git clone https://github.com/<you>/nixOS /tmp/nixOS
 cd /tmp/nixOS
 ```
 
-### 3. Gere o hardware real
+For a private repository, run `nix-shell -p gh --run 'gh auth login'` first and clone with
+`gh repo clone`.
+
+### 3. Generate the hardware configuration
 
 ```sh
 nixos-generate-config --no-filesystems --show-hardware-config \
-  > nix/system/desktop/hardware.nix
-git add nix/system/desktop/hardware.nix
+  > nix/system/<host>/hardware.nix
+git add nix/system/<host>/hardware.nix
 ```
 
-Sem o `git add`, o flake não enxerga o host `desktop`.
+Without `git add`, the flake does not see the file and `<host>` does not exist.
 
-### 4. Ajuste o `stateVersion`
+### 4. Set `stateVersion`
 
-Em `nix/system/desktop/default.nix` e `nix/home/desktop/default.nix`, use a release da ISO que
-está instalando. Depois disso, nunca mais mude esse valor.
+In `nix/system/<host>/default.nix` and `nix/home/<host>/default.nix`, use the release of the ISO
+you are installing. Never change it afterwards.
 
 ```sh
 git add -A
 ```
 
-### 5. Apague, particione e monte o disco
+### 5. Erase, partition and mount the disk
 
 ```sh
 nix --experimental-features 'nix-command flakes' run github:nix-community/disko/latest -- \
-  --mode destroy,format,mount --flake .#desktop
+  --mode destroy,format,mount --flake .#<host>
 ```
 
-O comando pede confirmação antes de apagar.
+disko asks for confirmation before erasing.
 
-### 6. Instale
+### 6. Install
 
 ```sh
-nixos-install --no-root-passwd --no-channel-copy --flake .#desktop
-nixos-enter --root /mnt -c 'passwd danyel'
+nixos-install --no-root-passwd --no-channel-copy --flake .#<host>
+nixos-enter --root /mnt -c 'passwd <user>'
 ```
 
-### 7. Copie o repositório e reinicie
+### 7. Copy the repository and reboot
+
+The configuration expects the repository at `~/Projects/nixOS`; `custom.dotfiles` in
+`nix/home/common.nix` changes that.
 
 ```sh
-mkdir -p /mnt/home/danyel/Projects
-cp -a /tmp/nixOS /mnt/home/danyel/Projects/nixOS
-chown -R 1000:100 /mnt/home/danyel/Projects
+mkdir -p /mnt/home/<user>/Projects
+cp -a /tmp/nixOS /mnt/home/<user>/Projects/nixOS
+chown -R 1000:100 /mnt/home/<user>/Projects
 reboot
 ```
 
-Remova o pendrive. No firmware, deixe **Linux Boot Manager** como primeira opção. O Windows
-continua disponível pelo menu de boot da placa-mãe.
+Remove the USB drive. In the firmware, put **Linux Boot Manager** first.
 
-## Primeiro boot
+## First boot
 
-Faça login no TTY1. O Hyprland inicia em seguida. Abra o terminal e salve o hardware gerado:
+Log in on TTY1; Hyprland starts right after. Open a terminal and save the generated hardware:
 
 ```sh
 gh auth login
 cd ~/Projects/nixOS
 git add -A
-git commit -m "Adiciona o hardware do desktop"
+git commit -m "Add the <host> hardware"
 git push
 ```
 
-Coloque os hosts SSH privados em `~/.ssh/config.local`, que fica fora do Git.
+Apply later changes with `nswitch` (`nh os switch`).
 
-## Se algo der errado
+Private SSH hosts go in `~/.ssh/config.local` and private shell settings in `~/.zshrc.local`; both
+stay out of Git.
 
-- No menu do `systemd-boot`, escolha uma geração anterior.
-- Para reparar pelo pendrive, monte o sistema de novo e entre nele:
+## If something goes wrong
+
+- In the `systemd-boot` menu, pick an earlier generation.
+- To repair from the USB drive, mount the system again and enter it:
 
 ```sh
 cd /tmp/nixOS
 nix --experimental-features 'nix-command flakes' run github:nix-community/disko/latest -- \
-  --mode mount --flake .#desktop
+  --mode mount --flake .#<host>
 nixos-enter --root /mnt
 ```
