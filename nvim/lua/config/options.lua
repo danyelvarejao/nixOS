@@ -2,7 +2,8 @@
 -- Default options: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 
 vim.opt.relativenumber = false -- Relative line numbers
-vim.opt.scrolloff = 9 -- Lines of context
+vim.opt.scrolloff = 12 -- Lines of context
+vim.opt.colorcolumn = "160" -- Ruler
 
 vim.opt.backup = false -- Don't store backup while overwriting the file
 vim.opt.writebackup = false -- Don't store backup while overwriting the file

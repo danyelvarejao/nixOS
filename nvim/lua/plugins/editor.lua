@@ -24,6 +24,30 @@ return {
 
   { "folke/todo-comments.nvim", enabled = false },
 
+  -- <leader>q, <leader>w and <leader><tab> are VS Code style mappings, see config/keymaps.lua.
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      local replaced = { ["<leader>q"] = true, ["<leader>w"] = true, ["<leader><tab>"] = true }
+      for _, group in ipairs(opts.spec or {}) do
+        for i = #group, 1, -1 do
+          if type(group[i]) == "table" and replaced[group[i][1]] then
+            table.remove(group, i)
+          end
+        end
+      end
+    end,
+  },
+  {
+    "folke/persistence.nvim",
+    keys = {
+      { "<leader>qs", false },
+      { "<leader>qS", false },
+      { "<leader>ql", false },
+      { "<leader>qd", false },
+    },
+  },
+
   {
     "folke/trouble.nvim",
     opts = {

@@ -57,15 +57,70 @@ return {
           stdin = false,
         },
       },
+      -- oxfmt formats everything it supports; the oxc extra adds it for JS, TS, JSON and Vue.
       formatters_by_ft = {
+        go = { "goimports" },
         nix = { "nixfmt" },
-        scss = { "oxfmt" },
         typescript = { "oxlint", "oxfmt" },
         javascript = { "oxlint", "oxfmt" },
+        css = { "oxfmt" },
+        scss = { "oxfmt" },
+        less = { "oxfmt" },
+        html = { "oxfmt" },
         markdown = { "oxfmt" },
         ["markdown.mdx"] = { "oxfmt" },
+        yaml = { "oxfmt" },
+        toml = { "oxfmt" },
+        graphql = { "oxfmt" },
+        handlebars = { "oxfmt" },
       },
     },
+  },
+
+  -- gofmt style through goimports, without gofumpt or golangci-lint.
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        gopls = { settings = { gopls = { gofumpt = false } } },
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    opts = { linters_by_ft = { go = {} } },
+  },
+
+  -- Detect indentation from the file, like VS Code's editor.detectIndentation.
+  { "NMAC427/guess-indent.nvim", lazy = false, opts = {} },
+
+  -- Multiple cursors
+  {
+    "jake-stewart/multicursor.nvim",
+    branch = "1.0",
+    event = "LazyFile",
+    config = function()
+      local mc = require("multicursor-nvim")
+      mc.setup()
+      vim.keymap.set({ "n", "x" }, "<C-A-j>", function()
+        mc.lineAddCursor(1)
+      end, { desc = "Add cursor below" })
+      vim.keymap.set({ "n", "x" }, "<C-A-k>", function()
+        mc.lineAddCursor(-1)
+      end, { desc = "Add cursor above" })
+      vim.keymap.set({ "n", "x" }, "<C-n>", function()
+        mc.matchAddCursor(1)
+      end, { desc = "Add cursor at next match" })
+      mc.addKeymapLayer(function(layer)
+        layer("n", "<esc>", function()
+          if not mc.cursorsEnabled() then
+            mc.enableCursors()
+          else
+            mc.clearCursors()
+          end
+        end)
+      end)
+    end,
   },
 
   {

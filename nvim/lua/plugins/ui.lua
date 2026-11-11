@@ -19,6 +19,9 @@ return {
     enabled = false,
   },
 
+  -- Colored bracket pairs
+  { "HiPhish/rainbow-delimiters.nvim", event = "LazyFile" },
+
   -- edgy
   {
     "folke/edgy.nvim",

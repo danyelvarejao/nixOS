@@ -28,6 +28,8 @@
   };
 
   home.packages = with pkgs; [
+    gopls
+    gotools # goimports
     lua-language-server
     luarocks
     marksman # Markdown

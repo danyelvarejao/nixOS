@@ -27,11 +27,9 @@ return {
           },
           git_diff = layout_full,
           explorer = {
-            layout = {
-              layout = {
-                position = "right",
-              },
-            },
+            hidden = true,
+            ignored = true,
+            follow_file = false,
           },
         },
       },
