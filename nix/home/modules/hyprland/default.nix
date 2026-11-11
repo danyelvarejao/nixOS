@@ -1,7 +1,6 @@
 { lib, ... }:
 {
   imports = [
-    ./idle.nix
     ./keybinds.nix
     ./look.nix
     ./rules.nix
@@ -51,7 +50,6 @@
 
         misc = {
           disable_splash_rendering = true;
-          key_press_enables_dpms = true;
         };
 
         ecosystem = {

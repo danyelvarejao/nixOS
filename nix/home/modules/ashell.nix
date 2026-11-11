@@ -33,7 +33,6 @@
         audio_sinks_more_cmd = "pavucontrol -t 3";
         audio_sources_more_cmd = "pavucontrol -t 4";
         indicators = [
-          "IdleInhibitor"
           "PowerProfile"
           "Audio"
           "Bluetooth"

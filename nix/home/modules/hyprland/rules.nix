@@ -94,7 +94,6 @@ in
       name = "steam";
       match.class = "steam";
       float = true;
-      idle_inhibit = "fullscreen";
     }
     {
       name = "steam-main";
