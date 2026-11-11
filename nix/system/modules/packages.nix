@@ -18,7 +18,7 @@
     gimp
     kdePackages.kdenlive
     playerctl
-    spotify
+    # spotify
     vlc
 
     # Office
