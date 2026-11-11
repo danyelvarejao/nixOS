@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, vars, ... }:
 {
   imports = [
     ./keybinds.nix
@@ -22,8 +22,8 @@
     settings = {
       config = {
         input = {
-          kb_layout = "us";
-          kb_variant = "intl";
+          kb_layout = vars.keyboard.layout;
+          kb_variant = vars.keyboard.variant;
           repeat_rate = 50;
           repeat_delay = 150;
           sensitivity = 0;

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  vars,
   ...
 }:
 {
@@ -36,7 +37,7 @@
 
   config = {
     home = rec {
-      username = "danyel";
+      username = vars.user;
       homeDirectory = "/home/${username}";
       packages = with pkgs; [
         clipboard

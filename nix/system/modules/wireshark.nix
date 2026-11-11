@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 {
   programs.wireshark = {
     enable = true;
@@ -7,5 +7,5 @@
 
   environment.systemPackages = with pkgs; [ wireshark ];
 
-  users.users.danyel.extraGroups = [ "wireshark" ];
+  users.users.${vars.user}.extraGroups = [ "wireshark" ];
 }

@@ -9,7 +9,7 @@ let
     };
   };
 
-  class = id: "dev.danyel.${id}";
+  class = id: "tui-app.${id}";
 in
 {
   xdg.desktopEntries = lib.mapAttrs (id: app: {

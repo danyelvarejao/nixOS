@@ -1,5 +1,5 @@
 # nixos-test is a disposable libvirt VM
-{ lib, ... }:
+{ lib, vars, ... }:
 {
   imports = [
     ./hardware.nix
@@ -14,21 +14,12 @@
 
   networking.hostName = "nixos-test";
 
-  # Remote access to validate changes on the VM.
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
-
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true;
 
   # Acceptable only on a disposable VM.
-  services.getty.autologinUser = "danyel";
-  users.users.danyel.initialPassword = "nixos-test";
+  services.getty.autologinUser = vars.user;
+  users.users.${vars.user}.initialPassword = "nixos-test";
   security.sudo.wheelNeedsPassword = lib.mkForce false;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

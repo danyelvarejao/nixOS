@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 {
   virtualisation.docker.enable = true;
 
-  users.users.danyel.extraGroups = [ "docker" ];
+  users.users.${vars.user}.extraGroups = [ "docker" ];
 
   environment.systemPackages = with pkgs; [ lazydocker ];
 }

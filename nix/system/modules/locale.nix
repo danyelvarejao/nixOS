@@ -1,6 +1,6 @@
-{ ... }:
+{ vars, ... }:
 {
-  time.timeZone = "America/Recife";
-  i18n.defaultLocale = "en_US.UTF-8";
-  console.keyMap = "us";
+  time.timeZone = vars.timeZone;
+  i18n.defaultLocale = vars.locale;
+  console.keyMap = vars.keyboard.console;
 }

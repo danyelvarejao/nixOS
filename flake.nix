@@ -37,23 +37,47 @@
     let
       inherit (self) outputs;
       inherit (nixpkgs) lib;
-      specialArgs = { inherit inputs outputs; };
+
+      # Personal settings. Change these to make the configuration yours.
+      vars = {
+        user = "danyel";
+        fullName = "Danyel Varejao";
+        git = {
+          name = "danyelvarejao";
+          email = "danyelvarejao@gmail.com";
+        };
+        # Public keys allowed to log in over SSH.
+        sshKeys = [ ./danyel.pub ];
+        timeZone = "America/Recife";
+        locale = "en_US.UTF-8";
+        # Locale used by the bar for dates.
+        region = "pt-BR";
+        keyboard = {
+          layout = "us";
+          variant = "intl";
+          # A console keymap name, which can differ from the XKB layout.
+          console = "us";
+        };
+      };
+
+      specialArgs = { inherit inputs outputs vars; };
 
       mkHost =
         name:
         lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            { home-manager.users.danyel = import ./nix/home/${name}; }
+            { home-manager.users.${vars.user} = import ./nix/home/${name}; }
             ./nix/system/${name}
           ];
         };
 
-      # A real host joins once its hardware.nix is generated during installation.
-      hosts = [
-        "nixos-test"
-      ]
-      ++ lib.optional (builtins.pathExists ./nix/system/desktop/hardware.nix) "desktop";
+      # Every nix/system/<host> with a hardware.nix is a host; the file is generated on installation.
+      hosts = lib.attrNames (
+        lib.filterAttrs (
+          name: type: type == "directory" && builtins.pathExists ./nix/system/${name}/hardware.nix
+        ) (builtins.readDir ./nix/system)
+      );
     in
     {
       overlays = import ./nix/overlays { inherit inputs; };

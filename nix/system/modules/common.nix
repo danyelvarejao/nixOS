@@ -21,6 +21,7 @@
     ./nix.nix
     ./shell.nix
     ./sound.nix
+    ./ssh.nix
     ./stylix.nix
     ./users.nix
   ];

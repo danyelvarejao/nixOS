@@ -1,12 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 {
   home.packages = [ pkgs.meld ];
 
   programs.git = {
     enable = true;
     settings = {
-      user.name = "danyelvarejao";
-      user.email = "danyelvarejao@gmail.com";
+      user = { inherit (vars.git) name email; };
 
       alias.l =
         let

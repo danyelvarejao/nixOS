@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 {
   hardware.openrazer = {
     enable = true;
-    users = [ "danyel" ];
+    users = [ vars.user ];
   };
 
   environment.systemPackages = with pkgs; [ polychromatic ];

@@ -1,14 +1,14 @@
-{ ... }:
+{ vars, ... }:
 {
-  users.users.danyel = {
+  users.users.${vars.user} = {
     isNormalUser = true;
-    description = "Danyel";
+    description = vars.fullName;
     extraGroups = [
       "wheel"
       "video"
       "networkmanager"
     ];
-    openssh.authorizedKeys.keyFiles = [ ../../../danyel.pub ];
+    openssh.authorizedKeys.keyFiles = vars.sshKeys;
   };
 
   security.sudo = {

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, vars, ... }:
 {
   stylix.targets.ashell.enable = true;
 
@@ -6,7 +6,7 @@
     enable = true;
     systemd.enable = true;
     settings = {
-      region = "pt-BR"; # Dates only; the rest of the bar stays in English.
+      region = vars.region; # Dates only; the rest of the bar stays in English.
       position = "Bottom";
       appearance = {
         scale_factor = 1.3;
@@ -49,7 +49,7 @@
       tempo = {
         clock_format = "%a %d/%m/%Y %H:%M:%S %Z";
         timezones = [
-          "America/Recife"
+          vars.timeZone
           "UTC"
         ];
       };

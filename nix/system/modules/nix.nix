@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  vars,
   ...
 }:
 {
@@ -26,7 +27,7 @@
         flake-registry = "";
         trusted-users = [
           "root"
-          "danyel"
+          vars.user
         ];
         nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
         auto-optimise-store = true;
@@ -39,6 +40,6 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = config.home-manager.users.danyel.custom.dotfiles;
+    flake = config.home-manager.users.${vars.user}.custom.dotfiles;
   };
 }
