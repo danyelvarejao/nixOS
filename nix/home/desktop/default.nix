@@ -1,17 +1,8 @@
-{ lib, ... }:
+{ ... }:
 {
   imports = [ ../common.nix ];
 
   wayland.windowManager.hyprland.settings = {
-    config.general = {
-      gaps_in = lib.mkForce 15;
-      gaps_out = lib.mkForce {
-        top = 27;
-        right = 27;
-        bottom = 5;
-        left = 27;
-      };
-    };
     monitor = [
       {
         output = "";

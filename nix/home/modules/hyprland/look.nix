@@ -39,7 +39,7 @@ in
   wayland.windowManager.hyprland.settings = {
     config = {
       general = {
-        gaps_in = 12;
+        gaps_in = 8;
         gaps_out = {
           top = 21;
           right = 21;
