@@ -24,6 +24,12 @@
 
   networking.hostName = "desktop";
 
+  # GPU firmware and CPU microcode from linux-firmware.
+  hardware.enableRedistributableFirmware = true;
+
+  # Firmware updates for the SSD, peripherals and motherboard: fwupdmgr update
+  services.fwupd.enable = true;
+
   # Keep USB audio and input devices awake.
   boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
