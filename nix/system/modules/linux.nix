@@ -65,10 +65,8 @@
   # Enable zsh completion for system packages.
   environment.pathsToLink = [ "/share/zsh" ];
 
-  services.logind.settings.Login = {
-    HandlePowerKey = "suspend";
-    HandleLidSwitch = "suspend";
-  };
+  # Never suspend when the lid closes; the power key keeps systemd's default (power off).
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
 
   # Automount removable media.
   services.devmon.enable = true;
