@@ -65,6 +65,9 @@
     # Installed automatically on the next launch; can't be turned off from /plugin.
     enabledPlugins = {
       "superpowers@claude-plugins-official" = true;
+      "feature-dev@claude-plugins-official" = true;
+      "frontend-design@claude-plugins-official" = true;
+      "context7@claude-plugins-official" = true;
       "mattpocock-skills@mattpocock" = true; # includes grill-me
       "rea@rea" = true; # reverse engineering skills + MCP server; uses the installed ghidra
     };
