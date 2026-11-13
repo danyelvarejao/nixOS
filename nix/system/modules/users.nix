@@ -16,6 +16,7 @@
     wheelNeedsPassword = true;
     extraConfig = ''
       Defaults        timestamp_timeout=600
+      Defaults        timestamp_type=global
     '';
   };
 }
