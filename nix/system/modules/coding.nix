@@ -73,6 +73,12 @@
     };
   };
 
+  # java on PATH and JAVA_HOME; Ghidra 12 headless (used by REA) needs JDK 25+, and the default jdk is 21.
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk25;
+  };
+
   # Safety net for prebuilt binaries that expect a standard Linux layout.
   programs.nix-ld.enable = true;
 }
