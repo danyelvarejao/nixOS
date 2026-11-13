@@ -42,13 +42,31 @@
     claude-code
   ];
 
-  # Claude Code system-wide settings: no Co-Authored-By trailer, PR footer or session link.
+  # Claude Code system-wide settings: no Co-Authored-By trailer, PR footer or session link, plus plugins.
   # Managed settings sit above ~/.claude/settings.json, which Claude Code keeps writable for itself.
   environment.etc."claude-code/managed-settings.json".text = builtins.toJSON {
     attribution = {
       commit = "";
       pr = "";
       sessionUrl = false;
+    };
+
+    extraKnownMarketplaces = {
+      mattpocock.source = {
+        source = "github";
+        repo = "mattpocock/skills";
+      };
+      rea.source = {
+        source = "github";
+        repo = "morluto/rea";
+      };
+    };
+
+    # Installed automatically on the next launch; can't be turned off from /plugin.
+    enabledPlugins = {
+      "superpowers@claude-plugins-official" = true;
+      "mattpocock-skills@mattpocock" = true; # includes grill-me
+      "rea@rea" = true; # reverse engineering skills + MCP server; uses the installed ghidra
     };
   };
 
