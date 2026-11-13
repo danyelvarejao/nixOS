@@ -73,7 +73,10 @@
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
-    settings.editor = "nvim";
+    settings = {
+      editor = "nvim";
+      git_protocol = "ssh";
+    };
   };
 
   programs.zsh.shellAliases = {
