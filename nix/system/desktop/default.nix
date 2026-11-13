@@ -9,8 +9,8 @@
   imports = [
     ./hardware.nix
     (import ../modules/disk.nix {
-      # The 954 GB XPG drive. The Windows WD_BLACK drive is never referenced here.
-      device = "/dev/disk/by-id/nvme-XPG_GAMMIX_S70_BLADE_2P47291792F9";
+      # The 1 TB WD_BLACK drive. disko erases it on install.
+      device = "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_233232801744";
       swapSize = "32G";
     })
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
