@@ -42,6 +42,16 @@
     claude-code
   ];
 
+  # Claude Code system-wide settings: no Co-Authored-By trailer, PR footer or session link.
+  # Managed settings sit above ~/.claude/settings.json, which Claude Code keeps writable for itself.
+  environment.etc."claude-code/managed-settings.json".text = builtins.toJSON {
+    attribution = {
+      commit = "";
+      pr = "";
+      sessionUrl = false;
+    };
+  };
+
   # Safety net for prebuilt binaries that expect a standard Linux layout.
   programs.nix-ld.enable = true;
 }
