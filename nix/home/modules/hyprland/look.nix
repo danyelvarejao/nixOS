@@ -69,8 +69,8 @@ in
           range = 5;
           color = "rgba(255,255,255,0.3)";
         };
-        active_opacity = 0.95;
-        inactive_opacity = 0.8;
+        active_opacity = 0.97;
+        inactive_opacity = 0.9;
         dim_inactive = false;
         dim_strength = 0.05;
       };
