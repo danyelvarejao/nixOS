@@ -22,7 +22,7 @@
       startup-message-capture = false; # for nvim noice
       font = {
         normal = [ config.stylix.fonts.monospace.name ];
-        size = 18.0;
+        size = config.stylix.fonts.sizes.terminal; # Match the terminal.
       };
     };
   };
