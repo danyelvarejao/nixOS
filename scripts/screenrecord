@@ -1,12 +1,51 @@
 # Starts a screen recording, or stops the one in progress.
+# Asks for resolution, FPS and audio in rofi, then for an area or window with slurp.
 if pkill -INT -f "gpu-screen-recorder -w"; then
-  notify-send -t 2000 "Screen recording stopped"
   exit 0
 fi
+
+menu() {
+  rofi -dmenu -i -no-custom -p "$1"
+}
+
+resolution="$(printf '1440p\nOriginal\n1080p\n' | menu resolution)" || exit 0
+case "$resolution" in
+  1440p) size="2560x1440" ;;
+  1080p) size="1920x1080" ;;
+  *) size="0x0" ;;
+esac
+
+fps="$(printf '144\n60\n' | menu fps)" || exit 0
+
+audio="$(printf 'Sistema\nSistema + mic\nSem áudio\n' | menu audio)" || exit 0
+case "$audio" in
+  Sistema) audio_args=(-a default_output) ;;
+  "Sistema + mic") audio_args=(-a "default_output|default_input") ;;
+  *) audio_args=() ;;
+esac
+
+# Windows on the visible workspaces, so a click in slurp picks a whole window.
+workspaces="$(hyprctl -j monitors | jq -c '[.[].activeWorkspace.id]')"
+windows="$(hyprctl -j clients | jq -r --argjson ws "$workspaces" \
+  '.[] | select(.workspace.id as $id | $ws | index($id)) | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')"
+region="$(printf '%s\n' "$windows" | slurp -f '%wx%h+%x+%y')" || exit 0
 
 dir="$HOME/Videos/Recordings"
 mkdir -p "$dir"
 file="$dir/recording-$(date +%F-%H%M%S).mp4"
 
-notify-send -t 2000 "Screen recording started" "$file"
-exec gpu-screen-recorder -w screen -f 60 -a default_output -o "$file"
+notify-send -t 2000 "Screen recording started" "$resolution · ${fps}fps · $audio"
+gpu-screen-recorder -w region -region "$region" -s "$size" -f "$fps" "${audio_args[@]}" -o "$file" || true
+
+if [[ ! -s "$file" ]]; then
+  notify-send -u critical "Screen recording failed" "No file was written."
+  exit 1
+fi
+
+wl-copy -t text/uri-list "file://$file"
+action="$(notify-send -A watch=Assistir -A folder="Mostrar na pasta" \
+  "Screen recording saved" "$(basename "$file") — copied to clipboard")" || exit 0
+case "$action" in
+  watch) exec mpv "$file" ;;
+  folder) exec nautilus --select "$file" ;;
+esac
