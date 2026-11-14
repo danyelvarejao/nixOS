@@ -14,6 +14,7 @@
     ./fonts.nix
     ./home-manager.nix
     ./hyprland.nix
+    ./keyring.nix
     ./linux.nix
     ./locale.nix
     ./network.nix
@@ -25,6 +26,5 @@
     ./users.nix
   ];
 
-  services.dbus.enable = true;
   programs.dconf.enable = true;
 }

@@ -22,7 +22,6 @@
     ./modules/gtk.nix
     ./modules/hyprland
     ./modules/hyprshade.nix
-    ./modules/keyring.nix
     ./modules/lazygit.nix
     ./modules/mpv.nix
     ./modules/nautilus.nix
