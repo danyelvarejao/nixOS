@@ -99,7 +99,7 @@ in
     (exec "SUPER + RETURN" "ghostty")
     (exec "SUPER + SHIFT + RETURN" "firefox")
     (exec "SUPER + F" "nautilus --new-window")
-    (exec "SUPER + N" "neovide")
+    (exec "SUPER + N" "code")
 
     # Utilities
     (exec "SUPER + SPACE" "rofi -show drun")
