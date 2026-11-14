@@ -14,6 +14,7 @@
 
     # Files
     _7zz # 7-Zip
+    cryptsetup # LUKS volumes
     dtrx
     dua # interactive disk usage
     dust
