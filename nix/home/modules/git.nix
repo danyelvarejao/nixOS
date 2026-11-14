@@ -19,15 +19,12 @@
       };
       merge.conflictStyle = "zdiff3";
       diff.tool = "meld";
-      push.default = "tracking";
+      push.default = "upstream";
       push.autoSetupRemote = true;
       pull.rebase = false;
       rebase.autoStash = true;
-      branch.autosetupmerge = true;
       rerere.enabled = true;
-      color.ui = true;
       blame.date = "relative";
-      paging.colorArg = "never";
     };
 
     lfs.enable = true;
