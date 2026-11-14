@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:
 {
   users.defaultUserShell = pkgs.zsh;
-  environment.shells = with pkgs; [ zsh ];
 
   programs.zsh = {
     # Required for the root user.

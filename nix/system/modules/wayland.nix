@@ -5,7 +5,6 @@
     hyprpicker
     libnotify
     slurp # visual region selection
-    wayland
     # wayvnc # VNC server for the Hyprland session
     wl-clipboard
     wlr-randr
