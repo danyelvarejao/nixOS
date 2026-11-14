@@ -38,6 +38,10 @@
     heaptrack
     tracy
 
+    # Headless X11 and GUI automation
+    xdotool
+    xvfb
+
     # AI coding agents
     claude-code
   ];
