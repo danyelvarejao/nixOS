@@ -4,6 +4,7 @@
   imports = [
     ./coding.nix
     ./docker.nix
+    ./mkcert
     ./rust.nix
     ./virtualisation.nix
     ./wireshark.nix
