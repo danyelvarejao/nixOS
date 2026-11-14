@@ -34,13 +34,8 @@
     hopper
     httptoolkit
 
-    # Profilers
+    # Profilers (Tracy comes from each project's devenv, matched to its tracy-client)
     heaptrack
-    tracy
-
-    # Headless X11 and GUI automation
-    xdotool
-    xvfb
 
     # AI coding agents
     claude-code
