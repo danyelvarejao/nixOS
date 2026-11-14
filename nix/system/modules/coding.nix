@@ -34,8 +34,9 @@
     hopper
     httptoolkit
 
-    # Profilers (Tracy comes from each project's devenv, matched to its tracy-client)
+    # Profilers
     heaptrack
+    tracy
 
     # AI coding agents
     claude-code
