@@ -13,6 +13,7 @@
   };
 
   imports = [
+    ./modules/android.nix
     ./modules/ashell.nix
     ./modules/cli.nix
     ./modules/easyeffects.nix

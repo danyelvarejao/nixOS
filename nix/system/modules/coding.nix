@@ -24,7 +24,6 @@
 
     # Editors and IDEs
     android-studio
-    android-tools
     jetbrains-toolbox
     vscode
 
@@ -95,6 +94,20 @@
       libxrandr
       alsa-lib
       dbus
+
+      # Android emulator run outside Android Studio (e.g. by `flutter emulators --launch`).
+      expat
+      libbsd
+      libdrm
+      libice
+      libpng
+      libpulseaudio
+      libsm
+      libxcb
+      libxext
+      libxkbfile
+      nspr
+      nss
     ];
   };
 }
