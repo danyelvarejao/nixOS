@@ -8,6 +8,7 @@
         "Downloads"
         "Pictures"
         "Videos"
+        "Freelancers"
         "Projects"
       ];
 
