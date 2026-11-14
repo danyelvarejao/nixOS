@@ -49,10 +49,10 @@
   };
 
   stylix.fonts.sizes = lib.mkForce {
-    applications = 12;
-    desktop = 12;
-    popups = 12;
-    terminal = 12;
+    applications = 11;
+    desktop = 11;
+    popups = 11;
+    terminal = 11;
   };
 
   # Set this to the NixOS release used on installation day, then never change it.

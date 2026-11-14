@@ -14,7 +14,7 @@
       region = vars.region; # Dates only; the rest of the bar stays in English.
       position = "Bottom";
       appearance = {
-        scale_factor = 1.3;
+        scale_factor = 1.1;
         opacity = lib.mkForce 0.1;
         menu = {
           opacity = lib.mkForce 0.4;
