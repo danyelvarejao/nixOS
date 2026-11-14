@@ -79,5 +79,21 @@
   };
 
   # Safety net for prebuilt binaries that expect a standard Linux layout.
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+
+    # Libraries for prebuilt GUI apps/games (Wayland, X11, GL, Vulkan, audio, D-Bus).
+    libraries = with pkgs; [
+      wayland
+      libxkbcommon
+      libGL
+      vulkan-loader
+      libx11
+      libxcursor
+      libxi
+      libxrandr
+      alsa-lib
+      dbus
+    ];
+  };
 }
