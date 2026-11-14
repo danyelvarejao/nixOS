@@ -9,7 +9,6 @@
   ];
 
   imports = [
-    ./bluetooth.nix
     ./boot.nix
     ./browser.nix
     ./fonts.nix

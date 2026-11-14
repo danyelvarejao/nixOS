@@ -1,4 +1,9 @@
-{ lib, vars, ... }:
+{
+  lib,
+  osConfig,
+  vars,
+  ...
+}:
 {
   stylix.targets.ashell.enable = true;
 
@@ -35,7 +40,9 @@
         indicators = [
           "PowerProfile"
           "Audio"
-          "Bluetooth"
+        ]
+        ++ lib.optional osConfig.hardware.bluetooth.enable "Bluetooth"
+        ++ [
           "Network"
           "Battery"
         ];
