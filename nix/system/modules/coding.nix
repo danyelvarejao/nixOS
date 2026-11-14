@@ -84,5 +84,9 @@
   };
 
   # Safety net for prebuilt binaries that expect a standard Linux layout.
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    # Added to nix-ld's default set (the module merges the lists); prebuilt Vulkan apps need libvulkan.
+    libraries = [ pkgs.vulkan-loader ];
+  };
 }
