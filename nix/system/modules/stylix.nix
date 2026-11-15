@@ -7,7 +7,7 @@
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
-    image = ../../home/wallpaper/planet-clouds.jpg;
+    image = ../../home/wallpaper/derrick-cooper-1.jpg;
 
     fonts = rec {
       sansSerif = {
@@ -36,7 +36,7 @@
     };
 
     opacity = {
-      terminal = 0.9;
+      terminal = 0.95;
       popups = 0.7;
       desktop = 0.5;
       applications = 0.9;
