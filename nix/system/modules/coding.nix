@@ -1,12 +1,10 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     # Build tools. Languages come from each project's devenv.nix; outside one, `nix shell nixpkgs#go`.
-    (lib.setPrio 11 clang) # gcc and clang both ship cc at priority 10; gcc wins
     gcc
     gnumake
     http-server
-    llvm
     nodejs
     openssl
     python3
@@ -28,7 +26,6 @@
 
     # Profilers
     heaptrack
-    tracy
 
     # AI coding agents
     claude-code
