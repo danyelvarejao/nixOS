@@ -1,11 +1,10 @@
-# Languages, IDEs, containers and network analysis.
+# IDEs, containers and network analysis. Languages come from each project's devenv.nix.
 { ... }:
 {
   imports = [
     ./coding.nix
     ./docker.nix
     ./mkcert
-    ./rust.nix
     ./virtualisation.nix
     ./wireshark.nix
   ];
