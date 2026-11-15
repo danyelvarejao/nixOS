@@ -78,7 +78,8 @@ in
     };
   };
 
-  # Safety net for prebuilt binaries that expect a standard Linux layout.
+  # Prebuilt binaries that expect a standard Linux layout: the Flutter SDKs FVM downloads, the Android SDK,
+  # binaries shipped by VS Code extensions.
   programs.nix-ld = {
     enable = true;
 
