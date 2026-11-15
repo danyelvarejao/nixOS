@@ -22,6 +22,7 @@
     ./modules/gtk.nix
     ./modules/hyprland
     ./modules/hyprshade.nix
+    ./modules/input-method.nix
     ./modules/lazygit.nix
     ./modules/mpv.nix
     ./modules/nautilus.nix
@@ -31,7 +32,6 @@
     ./modules/stream.nix
     ./modules/tui-apps.nix
     ./modules/wayland.nix
-    ./modules/xcompose.nix
     ./modules/xdg.nix
     ./modules/zsh.nix
   ];
