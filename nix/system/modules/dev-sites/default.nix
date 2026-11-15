@@ -1,18 +1,5 @@
-# Local HTTPS sites for development, reachable from this machine and the Android emulator.
-#
-# - https://<port>.test proxies to 127.0.0.1:<port>.
-# - Named sites live in each project, not here: a project writes <name>.caddy into
-#   /var/lib/dev-sites/ and reloads Caddy itself, with no root needed:
-#     example.test {
-#       import dev-site
-#       reverse_proxy 127.0.0.1:8085
-#     }
-#     caddy reload --config /etc/caddy/caddy_config --adapter caddyfile
-#   A file Caddy rejects fails the reload and leaves the running sites alone, but it also
-#   keeps Caddy from starting on the next boot until it is fixed or removed.
-# - Certificates are signed on first use by the shared mkcert CA (../mkcert).
-# - *.test resolves (NetworkManager's dnsmasq) to `address`, held by a dummy interface so it
-#   exists with or without a network, and the emulator, which uses the host's DNS, reaches it.
+# https://<name>.test → devenv's proxy (process.proxy) as <name>.localhost, with the original
+# name in X-Dev-Host. *.test resolves to a dummy interface, so the Android emulator reaches it.
 #
 # New machine: Caddy stays off until the CA key, which is not in the repo, is in place:
 #   sudo install -D -o caddy -g caddy -m 600 rootCA-key.pem /var/lib/caddy/mkcert/rootCA-key.pem
@@ -21,18 +8,16 @@
 # Android emulator: install ../mkcert/rootCA.pem as a CA certificate (Settings > Security >
 # Encryption & credentials), and have the app's debug build trust user CAs with
 # <debug-overrides><trust-anchors><certificates src="user"/> in network_security_config.xml.
-{ vars, ... }:
+{ ... }:
 let
   address = "10.254.254.1";
-  sitesDir = "/var/lib/dev-sites";
+  devenvProxy = "127.0.0.1:7080";
   caKey = "/var/lib/caddy/mkcert/rootCA-key.pem";
 in
 {
   services.caddy = {
     enable = true;
     globalConfig = ''
-      # HTTPS only: port 80 stays free for projects that serve plain HTTP behind this Caddy
-      # (an nginx with production's config, for instance).
       auto_https disable_redirects
       local_certs
       skip_install_trust
@@ -43,8 +28,7 @@ in
             cert ${../mkcert/rootCA.pem}
             key ${caKey}
           }
-          # mkcert's CA has pathlen:0, so it must sign the certificates itself, not through
-          # an intermediate of Caddy's.
+          # mkcert's CA has pathlen:0: it must sign the certificates itself.
           intermediate {
             format pem_file
             cert ${../mkcert/rootCA.pem}
@@ -53,30 +37,27 @@ in
         }
       }
     '';
-    # Every .test site issues its certificate on its first request: *.test catches every name,
-    # and a *.test wildcard certificate is rejected by most clients. No `ask` endpoint: only
-    # this machine reaches Caddy.
-    extraConfig = ''
-      (dev-site) {
-        tls {
-          on_demand
-        }
-      }
-
-      import ${sitesDir}/*.caddy
-    '';
+    # A * matches a single label, hence the alias for names like pma.example.test.
+    virtualHosts."*.test".serverAliases = [ "*.*.test" ];
     virtualHosts."*.test".extraConfig = ''
-      import dev-site
-      reverse_proxy 127.0.0.1:{labels.1}
+      tls {
+        on_demand
+      }
+      map {host} {dev_localhost} {
+        ~^(.+)\.test$ "''${1}.localhost"
+      }
+      reverse_proxy ${devenvProxy} {
+        header_up Host {dev_localhost}
+        header_up X-Dev-Host {host}
+      }
     '';
   };
 
-  # Without the CA key Caddy is skipped instead of failing every switch (see the top).
+  # Without the CA key Caddy is skipped instead of failing every switch.
   systemd.services.caddy.unitConfig.ConditionPathExists = caKey;
 
-  systemd.tmpfiles.rules = [ "d ${sitesDir} 0755 ${vars.user} users -" ];
+  environment.sessionVariables.DEVENV_PROXY_LISTEN = devenvProxy;
 
-  # The address *.test points at, on a dummy interface so it is always up.
   networking.networkmanager.ensureProfiles.profiles.dev-sites = {
     connection = {
       id = "dev-sites";
