@@ -1,11 +1,27 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+let
+  # REA's MCP server runs `node` from the PATH, and its Ghidra 12 headless needs JDK 25+ (the default jdk is 21).
+  # They reach Claude Code and what it runs, not the rest of the system.
+  claude-code = pkgs.symlinkJoin {
+    name = "claude-code";
+    paths = [ pkgs.claude-code ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/claude \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            pkgs.nodejs
+            pkgs.jdk25
+          ]
+        } \
+        --set JAVA_HOME ${pkgs.jdk25.home}
+    '';
+  };
+in
 {
   environment.systemPackages = with pkgs; [
-    # Build tools. Languages come from each project's devenv.nix; outside one, `nix shell nixpkgs#go`.
-    gcc
-    gnumake
+    # Languages and compilers come from each project's devenv.nix; outside one, `nix shell nixpkgs#go`.
     http-server
-    nodejs
     openssl
     python3
 
@@ -60,12 +76,6 @@
       "mattpocock-skills@mattpocock" = true; # includes grill-me
       "rea@rea" = true; # reverse engineering skills + MCP server; uses the installed ghidra
     };
-  };
-
-  # java on PATH and JAVA_HOME; Ghidra 12 headless (used by REA) needs JDK 25+, and the default jdk is 21.
-  programs.java = {
-    enable = true;
-    package = pkgs.jdk25;
   };
 
   # Safety net for prebuilt binaries that expect a standard Linux layout.

@@ -9,6 +9,8 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    # On nvim's PATH only: Treesitter compiles its parsers with cc.
+    extraPackages = [ pkgs.gcc ];
   };
 
   # The init.lua comes from nvim/, linked below.
