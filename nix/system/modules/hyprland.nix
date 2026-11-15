@@ -1,4 +1,15 @@
-{ lib, pkgs, ... }:
+{ config, pkgs, ... }:
+let
+  # Catppuccin Mocha like the rest of the desktop (stylix.nix), over the same wallpaper.
+  sddmTheme = pkgs.catppuccin-sddm.override {
+    flavor = "mocha";
+    accent = "mauve";
+    font = config.stylix.fonts.sansSerif.name;
+    fontSize = "12";
+    background = config.stylix.image;
+    loginBackground = true;
+  };
+in
 {
   imports = [ ./wayland.nix ];
 
@@ -8,9 +19,15 @@
     xwayland.enable = true;
   };
 
-  # Login on tty1: tuigreet remembers the last user, so only the password is typed, then starts Hyprland.
-  services.greetd = {
-    enable = true;
-    settings.default_session.command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd 'uwsm start hyprland-uwsm.desktop'";
+  # SDDM remembers the last user, so only the password is typed; it starts Hyprland through uwsm.
+  services.displayManager = {
+    defaultSession = "hyprland-uwsm";
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      package = pkgs.kdePackages.sddm;
+      theme = "catppuccin-mocha-mauve";
+    };
   };
+  environment.systemPackages = [ sddmTheme ];
 }
