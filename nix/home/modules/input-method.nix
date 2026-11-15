@@ -60,7 +60,4 @@ in
       ];
     };
   };
-
-  # Electron apps from nixpkgs (VS Code, Discord, ...) run on Wayland with the input method enabled.
-  home.sessionVariables.NIXOS_OZONE_WL = "1";
 }
