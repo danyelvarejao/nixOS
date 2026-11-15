@@ -8,13 +8,6 @@
 
   services.hyprpolkitagent.enable = true;
 
-  # Start the desktop after logging in on the first TTY.
-  programs.zsh.profileExtra = ''
-    if uwsm check may-start; then
-      exec uwsm start hyprland-uwsm.desktop
-    fi
-  '';
-
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false; # https://wiki.nixos.org/wiki/Hyprland
