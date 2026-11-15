@@ -1,16 +1,14 @@
 { config, ... }:
 {
   # Sidebar bookmarks. Home Manager owns this file, so bookmarks added from Nautilus won't stick.
-  gtk.gtk3.bookmarks =
-    map (dir: "file://${config.home.homeDirectory}/${dir}")
-      [
-        "Documents"
-        "Downloads"
-        "Pictures"
-        "Videos"
-        "Freelancers"
-        "Projects"
-      ];
+  gtk.gtk3.bookmarks = map (dir: "file://${config.home.homeDirectory}/${dir}") [
+    "Documents"
+    "Downloads"
+    "Pictures"
+    "Videos"
+    "Freelancers"
+    "Projects"
+  ];
 
   dconf.settings = {
     "org/gnome/nautilus/preferences" = {
