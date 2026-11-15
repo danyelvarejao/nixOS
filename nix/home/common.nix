@@ -20,7 +20,6 @@
     ./modules/git.nix
     ./modules/gtk.nix
     ./modules/hyprland
-    ./modules/hyprshade.nix
     ./modules/input-method.nix
     ./modules/lazygit.nix
     ./modules/mpv.nix
