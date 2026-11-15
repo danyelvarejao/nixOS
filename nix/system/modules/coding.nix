@@ -1,22 +1,15 @@
 { lib, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # Languages and build tools
-    bun
+    # Build tools. Languages come from each project's devenv.nix; outside one, `nix shell nixpkgs#go`.
     (lib.setPrio 11 clang) # gcc and clang both ship cc at priority 10; gcc wins
-    cmake
     gcc
     gnumake
-    go
     http-server
     llvm
-    ninja
     nodejs
     openssl
-    pnpm
     python3
-    ruby
-    uv
 
     # CI and tunnels
     act # run GitHub Actions locally
