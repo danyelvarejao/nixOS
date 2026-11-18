@@ -31,6 +31,7 @@ in
 
     # Editors and IDEs
     android-studio
+    android-tools
     jetbrains-toolbox
     vscode
 
