@@ -40,6 +40,7 @@
           --replace-fail 'if (h != bitmapData->height - 1)' 'if (h > bitmapData->height - 1)'
       '';
     }))
+    libsecret # secret-tool, to read and store passwords in the keyring
     wineWow64Packages.stable
   ];
 }
