@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   # for electron apps
   home.sessionVariables.DEFAULT_BROWSER = "firefox";
@@ -14,8 +14,39 @@
     defaultApplications =
       let
         browser = "firefox.desktop";
+        # Neovide, not nvim.desktop: GLib can't launch Terminal=true entries in ghostty.
+        editor = [ "neovide.desktop" ];
+        textTypes = [
+          "text/plain"
+          "text/markdown"
+          "text/x-log"
+          "text/csv"
+          "text/x-python"
+          "text/x-shellscript"
+          "text/x-csrc"
+          "text/x-chdr"
+          "text/x-c++src"
+          "text/x-c++hdr"
+          "text/x-go"
+          "text/x-lua"
+          "text/x-nix"
+          "text/rust"
+          "text/javascript"
+          "text/css"
+          "text/x-makefile"
+          "application/json"
+          "application/x-shellscript"
+          "application/javascript"
+          "application/typescript"
+          "application/xml"
+          "application/yaml"
+          "application/x-yaml"
+          "application/toml"
+          "application/x-desktop"
+        ];
       in
-      {
+      lib.genAttrs textTypes (_: editor)
+      // {
         "text/html" = [ browser ];
         "x-scheme-handler/http" = [ browser ];
         "x-scheme-handler/https" = [ browser ];
@@ -37,9 +68,6 @@
         "video/quicktime" = [ "mpv.desktop" ];
 
         "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
-
-        "text/markdown" = "nvim.desktop";
-        "text/plain" = "nvim.desktop";
       };
   };
 }
