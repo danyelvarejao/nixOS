@@ -140,6 +140,15 @@ in
       opacity = "1.0 override";
     }
 
+    # Remote Desktop (sdl-freerdp /wm-class:rdp-vm)
+    {
+      name = "rdp-vm";
+      match.class = "^(rdp-vm)$";
+      float = true;
+      center = true;
+      opacity = "1.0 override";
+    }
+
     # Always opaque
     {
       name = "opaque-firefox";
