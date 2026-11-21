@@ -15,7 +15,6 @@
   imports = [
     ./modules/ashell.nix
     ./modules/cli.nix
-    ./modules/easyeffects.nix
     ./modules/ghostty.nix
     ./modules/git.nix
     ./modules/gtk.nix
