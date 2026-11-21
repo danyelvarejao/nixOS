@@ -42,10 +42,7 @@
         omasnap
         screenrecord
       ];
-      sessionPath = [
-        "$HOME/.local/bin"
-        "$HOME/.cargo/bin"
-      ];
+      sessionPath = [ "$HOME/.local/bin" ];
     };
 
     programs.home-manager.enable = true;
