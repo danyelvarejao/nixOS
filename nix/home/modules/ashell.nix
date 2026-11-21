@@ -1,6 +1,5 @@
 {
   lib,
-  osConfig,
   vars,
   ...
 }:
@@ -40,9 +39,6 @@
         indicators = [
           "PowerProfile"
           "Audio"
-        ]
-        ++ lib.optional osConfig.hardware.bluetooth.enable "Bluetooth"
-        ++ [
           "Network"
           "Battery"
         ];
