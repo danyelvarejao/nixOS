@@ -23,7 +23,7 @@ in
     # Languages and compilers come from each project's devenv.nix; outside one, `nix shell nixpkgs#go`.
     http-server
     openssl
-    python3
+    (python3.withPackages (ps: [ ps.pillow ]))
 
     # CI and tunnels
     act # run GitHub Actions locally
