@@ -40,5 +40,15 @@
         preBuild = (old.preBuild or "") + "unset AWS_LC_SYS_USE_SYSTEM; export AWS_LC_SYS_USE_SYSTEM=0\n";
       }
     );
+
+    # The tray applet sends an absolute path as IconName, which ashell draws as a dot.
+    polychromatic = prev.polychromatic.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace polychromatic-tray-applet \
+          --replace-fail \
+            'appindicator.Indicator.new("polychromatic-tray-applet", icon_path, appindicator.IndicatorCategory.APPLICATION_STATUS)' \
+            'appindicator.Indicator.new_with_path("polychromatic-tray-applet", os.path.splitext(os.path.basename(icon_path))[0], appindicator.IndicatorCategory.APPLICATION_STATUS, os.path.dirname(icon_path))'
+      '';
+    });
   };
 }
