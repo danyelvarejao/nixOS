@@ -17,6 +17,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ../modules/common.nix
+    ../modules/secureboot.nix
     ../modules/development.nix
     ../modules/apps.nix
     ../modules/razer.nix
