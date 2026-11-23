@@ -34,7 +34,6 @@ dir="$HOME/Videos/Recordings"
 mkdir -p "$dir"
 file="$dir/recording-$(date +%F-%H%M%S).mp4"
 
-notify-send -t 2000 "Screen recording started" "$resolution · ${fps}fps · $audio"
 gpu-screen-recorder -w region -region "$region" -s "$size" -f "$fps" "${audio_args[@]}" -o "$file" || true
 
 if [[ ! -s "$file" ]]; then
