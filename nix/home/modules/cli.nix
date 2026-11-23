@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   programs.fzf = {
     enable = true;
@@ -52,7 +52,10 @@
 
   programs.btop = {
     enable = true;
+    # Only adds the driver runpath, so btop can dlopen libnvidia-ml for GPU stats.
+    package = pkgs.btop.override { cudaSupport = true; };
     settings = {
+      shown_boxes = "cpu mem net proc gpu0";
       update_ms = 300;
       cpu_single_graph = true;
       proc_per_core = true;
