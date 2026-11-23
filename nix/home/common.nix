@@ -46,5 +46,9 @@
     };
 
     programs.home-manager.enable = true;
+
+    # Home Manager dropped programs.wayprompt (nixpkgs removed the package), but
+    # Stylix still ships a wayprompt target that sets it. Remove once Stylix drops it.
+    stylix.targets.wayprompt.enable = false;
   };
 }
