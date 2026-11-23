@@ -13,6 +13,12 @@ let
   # SUPPORTED_CLOCKS`), or null to let the driver manage clocks freely.
   # Diagnose while it happens: `nvidia-smi dmon -s pc` (clocks/p-state per second).
   lockGpuClocks = "1000,3150";
+
+  # The core lock alone does not pin the p-state: VRAM still reclocks (10501 down to 5001/810/405 MHz)
+  # and every memory retrain stalls scanout for a moment (felt as a hitch while scrolling).
+  # A floor keeps it out of P5/P8. "10501,10501" pins P0 and removes it fully, at ~+40 W idle.
+  # Supported steps: `nvidia-smi -q -d SUPPORTED_CLOCKS`. Null leaves memory clocks free.
+  lockMemClocks = "5001,10501";
 in
 {
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -33,19 +39,29 @@ in
     NVD_BACKEND = "direct";
   };
 
-  systemd.services.nvidia-lock-gpu-clocks = lib.mkIf (lockGpuClocks != null) {
-    description = "Lock the NVIDIA GPU clock range";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "systemd-modules-load.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      # Persistence mode keeps the driver loaded, so the clock lock is not dropped.
-      ExecStart = [
-        "${nvidia.bin}/bin/nvidia-smi --persistence-mode=1"
-        "${nvidia.bin}/bin/nvidia-smi --lock-gpu-clocks=${lockGpuClocks}"
-      ];
-      ExecStop = "${nvidia.bin}/bin/nvidia-smi --reset-gpu-clocks";
-    };
-  };
+  systemd.services.nvidia-lock-gpu-clocks =
+    lib.mkIf (lockGpuClocks != null || lockMemClocks != null)
+      {
+        description = "Lock the NVIDIA GPU and memory clock ranges";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "systemd-modules-load.service" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          # Persistence mode keeps the driver loaded, so the clock locks are not dropped.
+          ExecStart = [
+            "${nvidia.bin}/bin/nvidia-smi --persistence-mode=1"
+          ]
+          ++ lib.optional (
+            lockGpuClocks != null
+          ) "${nvidia.bin}/bin/nvidia-smi --lock-gpu-clocks=${lockGpuClocks}"
+          ++ lib.optional (
+            lockMemClocks != null
+          ) "${nvidia.bin}/bin/nvidia-smi --lock-memory-clocks=${lockMemClocks}";
+          ExecStop = [
+            "${nvidia.bin}/bin/nvidia-smi --reset-gpu-clocks"
+            "${nvidia.bin}/bin/nvidia-smi --reset-memory-clocks"
+          ];
+        };
+      };
 }
