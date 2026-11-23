@@ -9,11 +9,10 @@ let
   nvidia = config.hardware.nvidia.package;
 
   # Workaround for the stutter after the desktop sits idle: the GPU drops to P8 and
-  # takes a moment to clock back up. Turned off until the lag shows up again.
-  # Diagnose while it happens: `nvidia-smi dmon -s pc` (clocks/p-state per second) or
-  # `nvidia-smi -q -d PERFORMANCE,CLOCK`. If the lag lines up with P8 and low clocks,
-  # set this to a "min,max" pair in MHz, e.g. "1000,3105" (max = `nvidia-smi -q -d SUPPORTED_CLOCKS`).
-  lockGpuClocks = null;
+  # takes a moment to clock back up. A "min,max" pair in MHz (max = `nvidia-smi -q -d
+  # SUPPORTED_CLOCKS`), or null to let the driver manage clocks freely.
+  # Diagnose while it happens: `nvidia-smi dmon -s pc` (clocks/p-state per second).
+  lockGpuClocks = "1000,3150";
 in
 {
   services.xserver.videoDrivers = [ "nvidia" ];
