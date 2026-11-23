@@ -15,7 +15,7 @@
     })
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    ../modules/nvidia.nix
     ../modules/common.nix
     ../modules/secureboot.nix
     ../modules/development.nix
@@ -26,7 +26,7 @@
 
   networking.hostName = "desktop";
 
-  # GPU firmware and CPU microcode from linux-firmware.
+  # CPU microcode and device firmware from linux-firmware.
   hardware.enableRedistributableFirmware = true;
 
   # Firmware updates for the SSD, peripherals and motherboard: fwupdmgr update

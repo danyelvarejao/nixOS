@@ -1,9 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
-      obs-vaapi # AMD hardware acceleration
-    ];
-  };
+  # Hardware encoding through NVENC, built into OBS.
+  programs.obs-studio.enable = true;
 }
