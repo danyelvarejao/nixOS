@@ -67,6 +67,10 @@
     usbutils
   ];
 
+  # mtr (traceroute + ping); the module installs it with the capability wrapper
+  # mtr-packet needs to send raw packets without sudo.
+  programs.mtr.enable = true;
+
   # Enable zsh completion for system packages.
   environment.pathsToLink = [ "/share/zsh" ];
 
