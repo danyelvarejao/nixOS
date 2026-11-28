@@ -55,6 +55,8 @@
           vars.timeZone
           "UTC"
         ];
+        weather_location.City = "Recife";
+        wind_speed_unit = "Kmh";
       };
       modules = {
         left = [
