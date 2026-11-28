@@ -23,6 +23,10 @@ in
 {
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  # The Ryzen iGPU stays enabled in the firmware for Windows, but a second DRM device
+  # leaves wgpu clients like ashell drawing a black surface on the NVIDIA output.
+  boot.blacklistedKernelModules = [ "amdgpu" ];
+
   hardware.nvidia = {
     open = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
